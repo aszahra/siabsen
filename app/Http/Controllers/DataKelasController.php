@@ -1,0 +1,112 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\DataKelas;
+use Illuminate\Http\Request;
+
+class DataKelasController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        try {
+            $nama = DataKelas::paginate(10);
+            return view('page.datakelas.index', compact('nama'));
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        try {
+            $data = [
+                'tingkat' => $request->input('tingkat'),
+                'sub_kelas' => $request->input('sub_kelas')
+            ];
+
+            DataKelas::create($data);
+
+            return redirect()
+                ->route('datakelas.index')
+                ->with('message_insert', 'Data Kelas Berhasil Ditambahkan');
+        } catch (\Exception $e) {
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        try {
+            $data = $request->validate([
+                'tingkat' => 'required|string|max:255',
+                'sub_kelas' => 'required|string|max:255',
+            ]);
+
+            $datas = DataKelas::findOrFail($id);
+            $datas->update($data);
+
+            return redirect()
+                ->route('datakelas.index')
+                ->with('message_insert', 'Data Kelas Berhasil Diupdate');
+        } catch (\Exception $e) {
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        try {
+            $kelas = DataKelas::findOrFail($id);
+            $kelas->delete();
+
+            return redirect()->route('datakelas.index')->with([
+                'alert' => 'success',
+                'message' => 'Data Kelas Berhasil Dihapus!',
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->route('datakelas.index')->with([
+                'alert' => 'error',
+                'message' => 'Gagal Menghapus Kelas: ' . $e->getMessage(),
+            ]);
+        }
+    }
+}
