@@ -19,7 +19,7 @@
                                 <label for="base-input"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tingkatan</label>
                                 <select class="js-example-placeholder-single js-states form-control w-full"
-                                    name="tingkat" id="tingkat">
+                                    name="tingkat">
                                     <option value="" disabled selected>Pilih...</option>
                                     <option value="7">7</option>
                                     <option value="8">8</option>
@@ -31,7 +31,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sub
                                     Kelas</label>
                                 <select class="js-example-placeholder-single js-states form-control w-full"
-                                    name="sub_kelas" id="sub_kelas">
+                                    name="sub_kelas">
                                     <option value="" disabled selected>Pilih Sub Kelas...</option>
                                     <option value="A">A</option>
                                     <option value="B">B</option>
@@ -48,7 +48,7 @@
 
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg w-full p-4">
                     <div class="p-4 bg-gray-100 mb-2 rounded-xl font-bold text-center">
-                        DATA GURU
+                        DATA KELAS
                     </div>
                     <div>
                         <div class="relative overflow-x-auto">
@@ -134,7 +134,8 @@
                     <div class="flex flex-col  p-4 space-y-6">
                         <div class="">
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Tingkatan</label>
-                            <select class="js-example-placeholder-single js-states form-control w-full" name="tingkat">
+                            <select class="js-example-placeholder-single js-states form-control w-full" name="tingkat"
+                                id="tingkat">
                                 <option value="" disabled selected>Pilih...</option>
                                 <option value="7">7</option>
                                 <option value="8">8</option>
@@ -142,9 +143,9 @@
                             </select>
                         </div>
                         <div class="">
-                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Tingkatan</label>
-                            <select class="js-example-placeholder-single js-states form-control w-full"
-                                name="sub_kelas">
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900">Sub Kelas</label>
+                            <select class="js-example-placeholder-single js-states form-control w-full" name="sub_kelas"
+                                id="sub_kelas">
                                 <option value="" disabled selected>Pilih Sub Kelas...</option>
                                 <option value="A">A</option>
                                 <option value="B">B</option>
@@ -155,10 +156,10 @@
                         </div>
                     </div>
                     <div class="flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b">
-                        <button type="submit" id="formSourceButton"
-                            class="bg-green-400 m-2 w-40 h-10 rounded-xl hover:bg-green-500">Simpan</button>
-                        <button type="button" data-modal-target="sourceModal" onclick="sourceModalClose(this)"
-                            class="bg-red-500 m-2 w-40 h-10 rounded-xl text-white hover:shadow-lg hover:bg-red-600">Batal</button>
+                        <button type="submit"
+                            id="formSourceButton"class="bg-green-400 m-2 w-40 h-10 rounded-xl hover:bg-green-500">Simpan</button>
+                        <button type="button" data-modal-target="sourceModal"
+                            onclick="sourceModalClose(this)"class="bg-red-500 m-2 w-40 h-10 rounded-xl text-white hover:shadow-lg hover:bg-red-600">Batal</button>
                     </div>
                 </form>
             </div>
@@ -167,6 +168,18 @@
 </x-app-layout>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if (session('message_exists'))
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: 'Duplikat!',
+            text: '{{ session('message_exists') }}',
+            showConfirmButton: false,
+            timer: 2500
+        });
+    </script>
+@endif
 
 @if (session('message_insert'))
     <script>
@@ -202,7 +215,15 @@
         let url = "{{ route('datakelas.update', ':id') }}".replace(':id', id);
 
         let status = document.getElementById(modalTarget);
-        document.getElementById('title_source').innerText = `Update Data Kelas ${tingkat} ${sub_kelas}`;
+        document.getElementById('title_source').innerText = `Update Data Kelas ${tingkat}${sub_kelas}`;
+
+        // let event = new Event('change');
+        // document.querySelector('[name="tingkat_edit"]').value = tingkat;
+        // document.querySelector('[name="tingkat_edit"]').dispatchEvent(event);
+
+        // let event = new Event('change');
+        // document.querySelector('[name="sub_kelas_edit"]').value = sub_kelas;
+        // document.querySelector('[name="sub_kelas_edit"]').dispatchEvent(event);
 
         $('#tingkat').val(tingkat).trigger('change');
         document.getElementById('tingkat').value = tingkat;
@@ -234,7 +255,7 @@
 
     const datakelasDelete = async (id, tingkat, sub_kelas) => {
         Swal.fire({
-            title: `Yakin ingin menghapus kelas ${tingkat} ${sub_kelas}?`,
+            title: `Yakin ingin menghapus kelas ${tingkat}${sub_kelas}?`,
             text: "Data yang dihapus tidak bisa dikembalikan!",
             icon: 'warning',
             showCancelButton: true,
@@ -252,7 +273,7 @@
                         Swal.fire({
                             icon: 'success',
                             title: 'Terhapus!',
-                            text: `Data kelas ${tingkat} ${sub_kelas} berhasil dihapus.`,
+                            text: `Data kelas ${tingkat}${sub_kelas} berhasil dihapus.`,
                             timer: 2000,
                             showConfirmButton: false
                         }).then(() => {

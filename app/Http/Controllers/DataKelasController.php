@@ -39,7 +39,20 @@ class DataKelasController extends Controller
                 'sub_kelas' => $request->input('sub_kelas')
             ];
 
-            DataKelas::create($data);
+            // DataKelas::create($data);
+
+            $exists = \App\Models\DataKelas::where('tingkat', $request->tingkat)
+                ->where('sub_kelas', $request->sub_kelas)
+                ->exists();
+
+            if ($exists) {
+                return redirect()->back()->with('message_exists', 'Kelas tersebut sudah terdaftar!');
+            }
+
+            \App\Models\DataKelas::create([
+                'tingkat' => $request->tingkat,
+                'sub_kelas' => $request->sub_kelas,
+            ]);
 
             return redirect()
                 ->route('datakelas.index')
@@ -77,8 +90,23 @@ class DataKelasController extends Controller
                 'sub_kelas' => 'required|string|max:255',
             ]);
 
-            $datas = DataKelas::findOrFail($id);
-            $datas->update($data);
+            // $datas = DataKelas::findOrFail($id);
+            // $datas->update($data);
+
+            $existing = \App\Models\DataKelas::where('tingkat', $request->tingkat)
+                ->where('sub_kelas', $request->sub_kelas)
+                ->where('id', '!=', $id) 
+                ->exists();
+
+            if ($existing) {
+                return redirect()->back()->with('message_exists', 'Kelas tersebut sudah terdaftar!');
+            }
+
+            $data = \App\Models\DataKelas::findOrFail($id);
+            $data->update([
+                'tingkat' => $request->tingkat,
+                'sub_kelas' => $request->sub_kelas,
+            ]);
 
             return redirect()
                 ->route('datakelas.index')
