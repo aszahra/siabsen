@@ -59,10 +59,10 @@
                                         <th scope="col" class="px-4 py-3 bg-gray-100">
                                             NO
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-6 py-3 bg-gray-100">
                                             TINGKATAN
                                         </th>
-                                        <th scope="col" class="px-6 py-3  bg-gray-100">
+                                        <th scope="col" class="px-6 py-3 bg-gray-100">
                                             SUB KELAS
                                         </th>
                                         <th scope="col" class="px-6 py-3 bg-gray-100">
@@ -84,10 +84,10 @@
                                             <td class="px-5 py-3">
                                                 {{ $item->tingkat }}
                                             </td>
-                                            <td class="px-5 py-3 bg-gray-100">
+                                            <td class="px-5 py-3">
                                                 {{ $item->sub_kelas }}
                                             </td>
-                                            <td class="px-5 py-3 bg-gray-100">
+                                            <td class="px-5 py-3">
                                                 <button type="button"
                                                     class="bg-amber-400 p-3 w-10 h-10 rounded-xl text-white hover:bg-amber-500"
                                                     onclick="editSourceModal(this)" data-modal-target="sourceModal"
