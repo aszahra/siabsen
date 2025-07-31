@@ -86,7 +86,7 @@ class DataGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = Dataguru::findOrFail($id);
+        $data = DataGuru::findOrFail($id);
         $data->delete();
         return back()->with('message_delete', 'Data Konsumen Sudah dihapus');
     }

@@ -12,24 +12,15 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-<<<<<<< HEAD
-=======
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
->>>>>>> fitur-datakelas
     {{-- Select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     {{-- Jquery --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-<<<<<<< HEAD
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-=======
->>>>>>> fitur-datakelas
     <style>
         .select2-container .select2-selection--single {
             width: 100% !important;
@@ -65,10 +56,7 @@
             border-radius: 0px 10px 0px 10px;
         }
     </style>
-<<<<<<< HEAD
 
-=======
->>>>>>> fitur-datakelas
 </head>
 
 <body class="font-sans text-gray-900 antialiased">
@@ -79,25 +67,9 @@
             </a>
         </div>
 
-        <div
-            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
-            {{ $slot }}
+            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+                {{ $slot }}
+            </div>
         </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
-        // In your Javascript (external .js resource or <script> tag)
-        $(".js-example-placeholder-single").select2({
-            placeholder: "Pilih...",
-            allowClear: true,
-            width: '100%'
-        });
-    </script>
-<<<<<<< HEAD
-=======
-    @stack('scripts')
->>>>>>> fitur-datakelas
-</body>
-
+    </body>
 </html>
