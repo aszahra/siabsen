@@ -62,6 +62,5 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Dibuat Oleh
 - KKN Kelompok 2 Desa Sirnaraja
-- Kampus Politeknik LP3I Tasikmalaya
-- Program Absensi Siswa Smpn 2 Cigalontang
-- 
+- Politeknik LP3I Kampus Tasikmalaya
+- Program Absensi Siswa SMPN 2 Cigalontang
