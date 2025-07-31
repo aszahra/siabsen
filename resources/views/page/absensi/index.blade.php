@@ -28,16 +28,10 @@
                                         NO
                                     </th>
                                     <th scope="col" class="px-4 py-3">
-                                        NAMA GURU
-                                    </th>
-                                    <th scope="col" class="px-4 py-3">
                                         MATA PELAJARAN
                                     </th>
                                     <th scope="col" class="px-4 py-3">
                                         KELAS
-                                    </th>
-                                    <th scope="col" class="px-4 py-3">
-                                        HARI
                                     </th>
                                     <th scope="col" class="px-4 py-3">
                                         WAKTU MULAI
@@ -55,30 +49,18 @@
                                 @php
                                     $no = 1;
                                 @endphp
-                                @foreach ($jadwal as $key => $t)
+                                @foreach ($absensi as $key => $a)
                                     <tr
                                         class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center">
                                         <th scope="row"
                                             class="px-4 py-2 font-medium text-gray-700 whitespace-nowrap dark:text-white">
-                                            {{ $jadwal->perPage() * ($jadwal->currentPage() - 1) + $key + 1 }}
+                                            {{ $absensi->perPage() * ($absensi->currentPage() - 1) + $key + 1 }}
                                         </th>
                                         <td class="px-4 py-2">
-                                            {{ $t->guru->nama }}
+                                            {{ $t->id_guru->nama }}
                                         </td>
                                         <td class="px-4 py-2">
-                                            {{ $t->matpel->nama }}
-                                        </td>
-                                        <td class="px-4 py-2">
-                                            {{ $t->kelas->tingkat }}{{ $t->kelas->sub_kelas }}
-                                        </td>
-                                        <td class="px-4 py-2">
-                                            {{ $t->hari }}
-                                        </td>
-                                        <td class="px-4 py-2">
-                                            {{ $t->waktu_mulai }}
-                                        </td>
-                                        <td class="px-4 py-2">
-                                            {{ $t->waktu_selesai }}
+                                            {{ $t->id_jadwal->matpel }}
                                         </td>
                                         <td class="px-4 py-2">
                                             <button type="button" onclick="editSourceModal(this)"
@@ -99,7 +81,7 @@
                             </tbody>
                         </table>
                     </div>
-                    {{ $jadwal->links() }}
+                    {{ $absensi->links() }}
                 </div>
             </div>
         </div>
@@ -135,20 +117,20 @@
                         </select>
                     </div>
                     <div class="w-full">
-                        <label for="id_matpel" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mata
+                        <label for="id_jadwal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mata
                             Pelajaran</label>
                         <select class="js-example-placeholder-single js-states form-control w-full" name="id_matpel"
-                            id="id_matpel" placeholder="Pilih Mata Pelajaran" required>
+                            id="id_jadwal" placeholder="Pilih Mata Pelajaran" required>
                             <option value="" disabled selected>Pilih Mata Pelajaran...</option>
-                            @foreach ($matpel as $k)
-                                <option value="{{ $k->id }}">{{ $k->nama }}
+                            @foreach ($jadwal as $k)
+                                <option value="{{ $k->id }}">{{ $k->tingkat_kelas }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
                 </div>
 
-                <div class="flex flex-col md:flex-row gap-6 mb-6">
+                {{-- <div class="flex flex-col md:flex-row gap-6 mb-6">
                     <div class="w-full">
                         <label for="id_kelas"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kelas</label>
@@ -174,7 +156,7 @@
                             <option value="Jumat">Jumat</option>
                         </select>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="flex flex-col md:flex-row gap-6 mb-6">
                     <div class="mb-5 w-full">
@@ -255,7 +237,7 @@
         document.getElementById('hari').value = hari;
 
         const form = document.getElementById('formSourceModal');
-        form.action = `/jadwal/${id}`;
+        form.action = `/absensi/${id}`;
         form.method = 'POST';
 
         if (!form.querySelector('input[name="_method"]')) {
@@ -273,7 +255,7 @@
         document.getElementById('sourceModal').classList.add('hidden');
     };
 
-    const jadwalDelete = async (id, nama) => {
+    const absensiDelete = async (id, nama) => {
         Swal.fire({
             title: `Yakin ingin menghapus jadwal ini?`,
             text: "Data yang dihapus tidak bisa dikembalikan!",
@@ -285,7 +267,7 @@
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.post(`/jadwal/${id}`, {
+                axios.post(`/absensi/${id}`, {
                         '_method': 'DELETE',
                         '_token': $('meta[name="csrf-token"]').attr('content')
                     })

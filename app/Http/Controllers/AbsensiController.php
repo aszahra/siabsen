@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absensi;
+use App\Models\DataGuru;
+use App\Models\Jadwal;
 use Illuminate\Http\Request;
 
 class AbsensiController extends Controller
@@ -11,7 +14,15 @@ class AbsensiController extends Controller
      */
     public function index()
     {
-        //
+        $guru = DataGuru::all();
+        $jadwal = Jadwal::all();
+        $absensi = Absensi::paginate(10);
+        // $client = Client::all();
+        return View('page.absensi.index')->with([
+            'jadwal' => $jadwal,
+            'guru' => $guru,
+            'absensi' => $absensi,
+        ]);
     }
 
     /**
@@ -22,7 +33,7 @@ class AbsensiController extends Controller
         //
     }
 
-    /**
+    /**ab
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
