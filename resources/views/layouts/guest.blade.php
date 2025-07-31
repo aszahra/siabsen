@@ -12,15 +12,24 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+<<<<<<< HEAD
+=======
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+>>>>>>> fitur-datakelas
     {{-- Select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     {{-- Jquery --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+<<<<<<< HEAD
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+=======
+>>>>>>> fitur-datakelas
     <style>
         .select2-container .select2-selection--single {
             width: 100% !important;
@@ -56,7 +65,10 @@
             border-radius: 0px 10px 0px 10px;
         }
     </style>
+<<<<<<< HEAD
 
+=======
+>>>>>>> fitur-datakelas
 </head>
 
 <body class="font-sans text-gray-900 antialiased">
@@ -82,6 +94,10 @@
             width: '100%'
         });
     </script>
+<<<<<<< HEAD
+=======
+    @stack('scripts')
+>>>>>>> fitur-datakelas
 </body>
 
 </html>
