@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absensi;
+use App\Models\DataKelas;
+use App\Models\DataMatpel;
+use App\Models\Jadwal;
 use Illuminate\Http\Request;
 
 class AbsensiController extends Controller
@@ -11,7 +15,19 @@ class AbsensiController extends Controller
      */
     public function index()
     {
-        //
+        // $matpel = DataMatpel::all();
+        // $kelas = DataKelas::all();
+        // $absensi = Absensi::paginate(10);
+        // return View('page.absensi.index')->with([
+        //     'absensi' => $absensi,
+        //     'matpel' => $matpel,
+        //     'kelas' => $kelas,
+        // ]);
+
+        $jadwal = Jadwal::all();
+        // $kelas = DataKelas::all();
+        // $absensi = Absensi::paginate(10);
+        return view('page.absensi.index', compact('jadwal'));
     }
 
     /**
