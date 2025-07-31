@@ -67,9 +67,22 @@
             </a>
         </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
-            </div>
+        <div
+            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+            {{ $slot }}
         </div>
-    </body>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        // In your Javascript (external .js resource or <script> tag)
+        $(".js-example-placeholder-single").select2({
+            placeholder: "Pilih...",
+            allowClear: true,
+            width: '100%'
+        });
+    </script>
+    
+</body>
+
 </html>
