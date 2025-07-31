@@ -20,4 +20,9 @@ class DataKelas extends Model
     {
         return $this->hasMany(DataSiswa::class, 'id_kelas');
     }
+
+    public function jadwal()
+    {
+        return $this->hasMany(Jadwal::class, 'id_kelas');
+    }
 }

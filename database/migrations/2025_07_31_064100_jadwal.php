@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_guru', function (Blueprint $table) {
+        Schema::create('jadwal', function (Blueprint $table) {
             $table->id();
-            $table->string('nip');
-            $table->string('nama');
-            $table->string('jenis_kelamin');
-            $table->string('alamat');
-            $table->date('tgl_lahir');
-            $table->enum('status', ['aktif', 'nonaktif'])->nullable();
+            $table->string('id_guru');
+            $table->string('id_matpel');
+            $table->string('id_kelas');
+            $table->string('hari');
+            $table->time('waktu_mulai');
+            $table->time('waktu_selesai');
             $table->timestamps();
         });
     }

@@ -15,7 +15,13 @@ class DataGuru extends Model
         'jenis_kelamin',
         'alamat',
         'tgl_lahir',
+        'status',
     ];
 
     protected $table = 'data_guru';
+
+    public function jadwal()
+    {
+        return $this->hasMany(Jadwal::class, 'id_guru');
+    }
 }
