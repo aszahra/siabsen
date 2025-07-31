@@ -220,16 +220,17 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-@if ($errors->has('nip'))
+@if (session('nip_exists'))
     <script>
         Swal.fire({
             icon: 'error',
             title: 'NIP Duplikat!',
-            text: '{{ $errors->first('nip') }}',
+            text: '{{ session('nip_exists') }}',
             confirmButtonText: 'OK'
         });
     </script>
 @endif
+
 
 @if (session('message_insert'))
     <script>

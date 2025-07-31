@@ -33,18 +33,32 @@ class DataGuruController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'nip' => $request->input('nip'),
-            'nama' => $request->input('nama'),
-            'jenis_kelamin' => $request->input('jenis_kelamin'),
-            'alamat' => $request->input('alamat'),
-            'tgl_lahir' => $request->input('tgl_lahir'),
-        ];
+        try {
+            $data = [
+                'nip' => $request->input('nip'),
+                'nama' => $request->input('nama'),
+                'jenis_kelamin' => $request->input('jenis_kelamin'),
+                'alamat' => $request->input('alamat'),
+                'tgl_lahir' => $request->input('tgl_lahir'),
+            ];
 
-        DataGuru::create($data);
+            // Cek apakah NIP sudah ada
+            $exists = \App\Models\DataGuru::where('nip', $request->nip)->exists();
 
-        return back()->with('message_insert', 'Data Guru Sudah Di Tambahkan');
+            if ($exists) {
+                return redirect()->back()->with('nip_exists', 'Guru tersebut sudah terdaftar!');
+            }
+
+            \App\Models\DataGuru::create($data);
+
+            return redirect()
+                ->route('dataguru.index')
+                ->with('message_insert', 'Data Guru Berhasil Ditambahkan');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.');
+        }
     }
+
 
     /**
      * Display the specified resource.
@@ -67,19 +81,34 @@ class DataGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = [
-            'nip' => $request->input('nip'),
-            'nama' => $request->input('nama'),
-            'jenis_kelamin' => $request->input('jenis_kelamin'),
-            'alamat' => $request->input('alamat'),
-            'tgl_lahir' => $request->input('tgl_lahir'),
-        ];
+        try {
+            $data = $request->validate([
+                'nip' => 'required',
+                'nama' => 'required',
+                'jenis_kelamin' => 'required',
+                'alamat' => 'required',
+                'tgl_lahir' => 'required|date',
+            ]);
 
+            $existing = \App\Models\DataGuru::where('nip', $request->nip)
+                ->where('id', '!=', $id)
+                ->exists();
 
-        $datas = DataGuru::findOrFail($id);
-        $datas->update($data);
-        return back()->with('message_update', 'Data Guru Sudah Diupdate');
+            if ($existing) {
+                return redirect()->back()->with('nip_exists', 'Guru dengan NIP tersebut sudah terdaftar!');
+            }
+
+            $guru = \App\Models\DataGuru::findOrFail($id);
+            $guru->update($data);
+
+            return redirect()
+                ->route('dataguru.index')
+                ->with('message_update', 'Data Guru Berhasil Diupdate');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
