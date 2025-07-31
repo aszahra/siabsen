@@ -13,7 +13,7 @@ class DataKelasController extends Controller
     public function index()
     {
         try {
-            $nama = DataKelas::paginate(10);
+            $nama = DataKelas::paginate(3);
             return view('page.datakelas.index', compact('nama'));
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
