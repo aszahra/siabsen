@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absensi;
+use App\Models\DataGuru;
 use App\Models\DataKelas;
 use App\Models\DataMatpel;
+use App\Models\DataSiswa;
 use App\Models\Jadwal;
 use Illuminate\Http\Request;
 
@@ -35,7 +37,14 @@ class AbsensiController extends Controller
      */
     public function create()
     {
-        //
+        $jadwal = Jadwal::all();
+        $data_guru = DataGuru::all();
+        $data_siswa = DataSiswa::all();
+        return view('page.absensi.create')->with([
+            'jadwal' => $jadwal,
+            'data_guru' => $data_guru,
+            'data_siswa' => $data_siswa,
+        ]);
     }
 
     /**ab
