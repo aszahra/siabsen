@@ -15,4 +15,9 @@ class DataKelas extends Model
     ];
 
     protected $table = 'data_kelas';
+
+    public function siswa()
+    {
+        return $this->hasMany(DataSiswa::class, 'id_kelas');
+    }
 }

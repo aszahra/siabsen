@@ -41,7 +41,7 @@
                                     {{ __('Data Kelas') }}
                                 </x-dropdown-link>
 
-                                <x-dropdown-link :href="route('dashboard')">
+                                <x-dropdown-link :href="route('datasiswa.index')">
                                     {{ __('Data Siswa') }}
                                 </x-dropdown-link>
 
