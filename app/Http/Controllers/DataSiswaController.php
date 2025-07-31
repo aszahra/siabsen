@@ -46,7 +46,16 @@ class DataSiswaController extends Controller
                 'alamat' => $request->input('alamat'),
                 'tgl_lahir' => $request->input('tgl_lahir')
             ];
-            Datasiswa::create($data);
+            // Datasiswa::create($data);
+
+            $exists = \App\Models\DataSiswa::where('nis', $request->nis)->exists();
+
+            if ($exists) {
+                return redirect()->back()->with('exist', 'Siswa tersebut sudah terdaftar!');
+            }
+
+            \App\Models\DataSiswa::create($data);
+
 
             // return back()->with('message_delete', 'Data Customer Sudah di Hapus');
 
@@ -92,9 +101,19 @@ class DataSiswaController extends Controller
             ];
 
 
-            $datas = Datasiswa::findOrFail($id);
-            $datas->update($data);
-            // return back()->with('message_delete', 'Data Album Sudah dihapus');
+            // $datas = Datasiswa::findOrFail($id);
+            // $datas->update($data);
+
+            $existing = \App\Models\DataSiswa::where('nis', $request->nis)
+                ->where('id', '!=', $id)
+                ->exists();
+
+            if ($existing) {
+                return redirect()->back()->with('exist', 'Siswa dengan NIS tersebut sudah terdaftar!');
+            }
+
+            $siswa = \App\Models\DataSiswa::findOrFail($id);
+            $siswa->update($data);
 
             return redirect()
                 ->route('datasiswa.index')

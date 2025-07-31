@@ -42,7 +42,6 @@ class DataGuruController extends Controller
                 'tgl_lahir' => $request->input('tgl_lahir'),
             ];
 
-            // Cek apakah NIP sudah ada
             $exists = \App\Models\DataGuru::where('nip', $request->nip)->exists();
 
             if ($exists) {

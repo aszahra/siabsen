@@ -38,7 +38,8 @@
                                     name="id_kelas" id="base-input" placeholder="Pilih Kelas" required>
                                     <option value="" disabled selected>Pilih Kelas...</option>
                                     @foreach ($kelas as $k)
-                                        <option value="{{ $k->id }}">{{ $k->tingkat }}{{ $k->sub_kelas }}</option>
+                                        <option value="{{ $k->id }}">{{ $k->tingkat }}{{ $k->sub_kelas }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -145,7 +146,8 @@
                                                     class="bg-amber-400 p-3 w-10 h-10 rounded-xl text-white hover:bg-amber-500"
                                                     onclick="editSourceModal(this)" data-modal-target="sourceModal"
                                                     data-id="{{ $item->id }}" data-nis="{{ $item->nis }}"
-                                                    data-nama="{{ $item->nama }}" data-id_kelas="{{ $item->id_kelas }}"
+                                                    data-nama="{{ $item->nama }}"
+                                                    data-id_kelas="{{ $item->id_kelas }}"
                                                     data-jenis_kelamin="{{ $item->jenis_kelamin }}"
                                                     data-alamat="{{ $item->alamat }}"
                                                     data-tgl_lahir="{{ $item->tgl_lahir }}">
@@ -211,7 +213,8 @@
                                 name="id_kelas_edit" id="id_kelas" placeholder="Pilih Kelas">
                                 <option value="" disabled selected>Pilih Kelas...</option>
                                 @foreach ($kelas as $k)
-                                    <option value="{{ $k->id }}">{{ $k->tingkat }}{{ $k->sub_kelas }}</option>
+                                    <option value="{{ $k->id }}">{{ $k->tingkat }}{{ $k->sub_kelas }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -253,12 +256,12 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-@if ($errors->has('nis'))
+@if (session('exist'))
     <script>
         Swal.fire({
             icon: 'error',
             title: 'NIS Duplikat!',
-            text: '{{ $errors->first('nip') }}',
+            text: '{{ session('exist') }}',
             confirmButtonText: 'OK'
         });
     </script>
