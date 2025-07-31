@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-900 leading-tight">
-            {{ __('KELOLA JADWAL MATA PELAJARAN') }}
+            {{ __('MANAJEMEN JADWAL') }}
         </h2>
     </x-slot>
 
@@ -22,7 +22,7 @@
                     <div class="relative overflow-x-auto">
                         <table class="w-full text-sm text-left rtl:text-right text-black dark:text-gray-400">
                             <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                class="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr class="text-center font-semibold">
                                     <th scope="col" class="px-4 py-3">
                                         NO
@@ -57,7 +57,7 @@
                                 @endphp
                                 @foreach ($jadwal as $key => $t)
                                     <tr
-                                        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center">
+                                        class="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center">
                                         <th scope="row"
                                             class="px-4 py-2 font-medium text-gray-700 whitespace-nowrap dark:text-white">
                                             {{ $jadwal->perPage() * ($jadwal->currentPage() - 1) + $key + 1 }}

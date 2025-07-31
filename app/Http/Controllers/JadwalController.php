@@ -59,7 +59,7 @@ class JadwalController extends Controller
         ]);
 
 
-        return redirect()->route('jadwal.index')->with('success', 'Data Berhasil Ditambahkan');
+        return redirect()->route('jadwal.index')->with('message_insert', 'Data Berhasil Ditambahkan');
     }
 
     /**

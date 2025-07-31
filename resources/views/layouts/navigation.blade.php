@@ -52,20 +52,20 @@
                                 <x-dropdown-link :href="route('datamatpel.index')">
                                     {{ __('Data Mata Pelajaran') }}
                                 </x-dropdown-link>
-
+{{-- 
                                 <x-dropdown-link :href="route('jadwal.index')">
                                     {{ __('Jadwal') }}
-                                </x-dropdown-link>
+                                </x-dropdown-link> --}}
                             </x-slot>
                         </x-dropdown>
                     </li>
                 </div>
-{{-- 
+
                 <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
                     <x-nav-link :href="route('jadwal.index')" :active="request()->routeIs('dashboard')">
                         {{ __('Jadwal') }}
                     </x-nav-link>
-                </div> --}}
+                </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
                     <x-nav-link :href="route('absensi.index')" :active="request()->routeIs('dashboard')">
