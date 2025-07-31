@@ -13,7 +13,7 @@ class DataMataPelajaranController extends Controller
     public function index()
     {
         try {
-            $datamatpel = DataMatpel::paginate(5);
+            $datamatpel = DataMatpel::paginate(10);
             return view('page.datamatpel.index', compact('datamatpel'));
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

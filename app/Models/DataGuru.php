@@ -24,4 +24,9 @@ class DataGuru extends Model
     {
         return $this->hasMany(Jadwal::class, 'id_guru');
     }
+
+    public function absensi()
+    {
+        return $this->hasMany(Absensi::class, 'id_guru');
+    }
 }

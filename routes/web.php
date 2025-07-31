@@ -23,6 +23,7 @@ Route::resource('datakelas', DataKelasController::class)->middleware('auth');
 Route::resource('dataguru', DataGuruController::class)->middleware('auth');
 Route::resource('datasiswa', DataSiswaController::class)->middleware('auth');
 Route::resource('jadwal', JadwalController::class)->middleware('auth');
+Route::resource('absensi', AbsensiController::class)->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -13,7 +13,7 @@ class DataGuruController extends Controller
     public function index()
     {
         try {
-            $dataguru = DataGuru::paginate(5);
+            $dataguru = DataGuru::paginate(10);
             return view('page.dataguru.index', compact('dataguru'));
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

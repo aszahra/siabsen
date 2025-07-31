@@ -25,4 +25,9 @@ class DataSiswa extends Model
     {
         return $this->belongsTo(DataKelas::class, 'id_kelas', 'id');
     }
+
+    public function absensi()
+    {
+        return $this->hasMany(Absensi::class, 'id_siswa');
+    }
 }
