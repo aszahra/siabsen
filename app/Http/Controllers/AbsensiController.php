@@ -7,10 +7,7 @@ use App\Models\DataGuru;
 use App\Models\DataKelas;
 use App\Models\DataMatpel;
 use App\Models\DataSiswa;
-<<<<<<< HEAD
 use App\Models\DetailAbsensi;
-=======
->>>>>>> 8c75d71881f61155ec52f347cfdc699c7afe4d51
 use App\Models\Jadwal;
 use Illuminate\Http\Request;
 
@@ -109,20 +106,43 @@ class AbsensiController extends Controller
         $jadwal = Jadwal::all();
         $data_guru = DataGuru::all();
         $data_siswa = DataSiswa::all();
+
+        $absensi = Absensi::findOrFail($id); // ambil data absensi utama
+        $detail_absensi = DetailAbsensi::where('id_absensi', $id)->get(); // ambil detail absensi siswa
+
         return view('page.absensi.edit')->with([
             'jadwal' => $jadwal,
             'data_guru' => $data_guru,
             'data_siswa' => $data_siswa,
+            'absensi' => $absensi,
+            'detail_absensi' => $detail_absensi,
         ]);
     }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $absensi = Absensi::findOrFail($id);
+        $absensi->tanggal = $request->tanggal;
+        $absensi->save();
+
+        // Hapus detail lama, lalu simpan ulang (jika perlu)
+        DetailAbsensi::where('id_absensi', $id)->delete();
+
+        foreach ($request->absensi as $id_siswa => $status) {
+            DetailAbsensi::create([
+                'id_absensi' => $absensi->id,
+                'id_siswa' => $id_siswa,
+                'status' => $status,
+            ]);
+        }
+
+        return redirect()->route('absensi.index')->with('success', 'Data berhasil diperbarui.');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -130,5 +150,20 @@ class AbsensiController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function print($id)
+    {
+
+        \Carbon\Carbon::setLocale('id');
+
+        $absensi = Absensi::with([
+            'guru',
+            'jadwal.matpel',
+            'jadwal.kelas',
+            'detailabsensi.siswa'  // ← perbaikan di sini
+        ])->findOrFail($id);
+
+        return view('page.absensi.print', compact('absensi'));
     }
 }

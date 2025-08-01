@@ -58,10 +58,11 @@
                                     <td class="p-3 border">{{ $item->waktu_mulai }}</td>
                                     <td class="p-3 border">{{ $item->waktu_selesai }}</td>
                                     <td class="p-3 border space-x-2">
-                                        <a href="{{ route('absensi.create', $item->id) }}"
+                                        <a href="{{ route('absensi.create', $item->id) }}" @click.stop
                                             class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded shadow">
                                             Tambah
                                         </a>
+
                                     </td>
                                 </tr>
 
@@ -79,7 +80,7 @@
                                                             class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded text-xs">
                                                             Edit
                                                         </a>
-                                                        <a href="{{ route('absensi.edit', $absen->id) }}"
+                                                        <a href="{{ route('absensi.print', $absen->id) }}"
                                                             class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs">
                                                             Cetak
                                                         </a>
@@ -178,7 +179,7 @@
                         <label for="waktu_mulai"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waktu
                             Mulai</label>
-                        <input type="time" name="waktu_mulai" id="waktu_mulai" 
+                        <input type="time" name="waktu_mulai" id="waktu_mulai"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                     </div>
                     <div class="mb-5 w-full">
@@ -206,7 +207,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-           @if (session('message_insert'))
+             @if (session('message_insert'))
                         <script>
                             Swal.fire({
                                 icon: 'success',

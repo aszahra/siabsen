@@ -31,4 +31,9 @@ class Absensi extends Model
     {
         return $this->hasMany(DetailAbsensi::class, 'id_absensi');
     }
+
+    public function jadwal()
+    {
+        return $this->belongsTo(Jadwal::class, 'id_jadwal', 'id');
+    }
 }

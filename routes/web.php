@@ -26,6 +26,8 @@ Route::resource('jadwal', JadwalController::class)->middleware('auth');
 Route::resource('absensi', AbsensiController::class)->middleware('auth');
 // Route::get('/absensi/create/{jadwal}', [AbsensiController::class, 'create'])->name('absensi.create');
 Route::get('/absensi/{mapel}/tanggal', [AbsensiController::class, 'tanggal'])->name('absensi.tanggal');
+Route::get('/absensi/{id}/print', [AbsensiController::class, 'print'])->name('absensi.print');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
