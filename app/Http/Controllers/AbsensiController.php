@@ -7,10 +7,7 @@ use App\Models\DataGuru;
 use App\Models\DataKelas;
 use App\Models\DataMatpel;
 use App\Models\DataSiswa;
-<<<<<<< HEAD
 use App\Models\DetailAbsensi;
-=======
->>>>>>> 8c75d71881f61155ec52f347cfdc699c7afe4d51
 use App\Models\Jadwal;
 use Illuminate\Http\Request;
 
@@ -70,7 +67,7 @@ class AbsensiController extends Controller
         $request->validate([
             'tanggal' => 'required|date',
             'absensi' => 'required|array',
-            'absensi.*' => 'in:hadir,izin,sakit,alpa',
+            'absensi.*' => 'in:hadir,izin,sakit,alpa',  
         ]);
 
         $jadwal = Jadwal::first();
