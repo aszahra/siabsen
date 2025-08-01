@@ -7,7 +7,10 @@ use App\Models\DataGuru;
 use App\Models\DataKelas;
 use App\Models\DataMatpel;
 use App\Models\DataSiswa;
+<<<<<<< HEAD
 use App\Models\DetailAbsensi;
+=======
+>>>>>>> 8c75d71881f61155ec52f347cfdc699c7afe4d51
 use App\Models\Jadwal;
 use Illuminate\Http\Request;
 
@@ -48,7 +51,7 @@ class AbsensiController extends Controller
         ]);
     }
 
-    /**
+    /**ab
      * Store a newly created resource in storage.
      */
     // public function store(Request $request)

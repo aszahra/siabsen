@@ -11,7 +11,11 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg w-full p-4">
                     <div class="p-4 bg-gray-100 mb-6 rounded-xl font-bold">
                         <div class="flex items-center justify-between">
+<<<<<<< HEAD
                             <div class="w-full text-center">
+=======
+                            <div class="w-full">
+>>>>>>> 8c75d71881f61155ec52f347cfdc699c7afe4d51
                                 ABSEN MATA PELAJARAN
                             </div>
                         </div>
@@ -73,6 +77,7 @@
                                     <label for="waktu_mulai"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waktu
                                         Mulai</label>
+<<<<<<< HEAD
                                     <select class="js-example-placeholder-single js-states form-control w-full"
                                         name="waktu_mulai" id="waktu_mulai" disabled>
                                                 @foreach ($jadwal as $k)
@@ -80,11 +85,16 @@
                                     </option>
                                     @endforeach
                                     </select>
+=======
+                                    <input type="time" name="waktu_mulai" id="waktu_mulai"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" " />
+>>>>>>> 8c75d71881f61155ec52f347cfdc699c7afe4d51
                                 </div>
                                 <div class="mb-5 w-full">
                                     <label for="waktu_selesai"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waktu
                                         Selesai</label>
+<<<<<<< HEAD
                                     <select class="js-example-placeholder-single js-states form-control w-full"
                                         name="waktu_selesai" id="waktu_selesai" disabled>
                                         @foreach ($jadwal as $k)
@@ -92,6 +102,10 @@
                                             </option>
                                         @endforeach
                                     </select>
+=======
+                                    <input type="time" name="waktu_selesai" id="waktu_selesai"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" " />
+>>>>>>> 8c75d71881f61155ec52f347cfdc699c7afe4d51
                                 </div>
                             </div>
                             <div class="mb-5 w-full">
@@ -113,6 +127,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+<<<<<<< HEAD
                                             @foreach ($data_siswa as $i => $siswa)
                                                 <tr class="border-t dark:border-gray-600">
                                                     <td class="px-4 py-2 text-gray-800 dark:text-gray-100">
@@ -132,6 +147,26 @@
                                                 </tr>
                                             @endforeach
                                         </tbody>
+=======
+                                             @foreach ($data_siswa as $i=> $siswa)
+                                    <tr class="border-t dark:border-gray-600">
+                                        <td class="px-4 py-2 text-gray-800 dark:text-gray-100">
+                                            {{ $i + 1 }}</td>
+                                        <td class="px-4 py-2 text-gray-800 dark:text-gray-100">
+                                            {{ $siswa->nama }}</td>
+                                        <td class="px-4 py-2">
+                                            <select name="absensi[{{ $siswa->id }}]"
+                                                class="form-select w-full rounded-md">
+                                                <option value="hadir">Hadir</option>
+                                                <option value="izin">Izin</option>
+                                                <option value="sakit">Sakit</option>
+                                                <option value="alpa">Alpa</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+>>>>>>> 8c75d71881f61155ec52f347cfdc699c7afe4d51
                                     </table>
                                 </div>
                             </div>
