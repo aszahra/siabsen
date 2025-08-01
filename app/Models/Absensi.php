@@ -26,4 +26,9 @@ class Absensi extends Model
     {
         return $this->belongsTo(DataGuru::class, 'id_guru', 'id');
     }
+
+    public function detailabsensi()
+    {
+        return $this->hasMany(DetailAbsensi::class, 'id_absensi');
+    }
 }

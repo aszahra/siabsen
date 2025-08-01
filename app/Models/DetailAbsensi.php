@@ -10,6 +10,7 @@ class DetailAbsensi extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id_absensi',
         'id_siswa',
         'status',
     ];
@@ -19,5 +20,10 @@ class DetailAbsensi extends Model
     public function siswa()
     {
         return $this->belongsTo(DataSiswa::class, 'id_siswa', 'id');
+    }
+
+    public function absensi()
+    {
+        return $this->belongsTo(Absensi::class, 'id_absensi', 'id');
     }
 }

@@ -49,26 +49,50 @@
                                     $no = 1;
                                 @endphp --}}
                                 @foreach ($jadwal as $index => $item)
-                                    <tr class="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center">
-                                        <td class="p-3 border">{{ $index + 1 }}</td>
-                                        <td class="p-3 border">{{ $item->matpel->nama }}</td>
-                                        <td class="p-3 border">{{ $item->kelas->tingkat }}{{ $item->kelas->sub_kelas }}
-                                        </td>
-                                        <td class="p-3 border">{{ $item->waktu_mulai }}</td>
-                                        <td class="p-3 border">{{ $item->waktu_selesai }}</td>
-                                        <td class="p-3 border space-x-2">
-                                            <a href="{{ route('absensi.create', $item->id) }}"
-                                                class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded shadow">
-                                                Tambah
-                                            </a>
-                                            <a href="{{ route('absensi.edit', $item->id) }}"
-                                                class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded shadow">
-                                                Edit
-                                            </a>
-                                        </td>
+                            <tbody x-data="{ open: false }">
+                                <tr @click="open = !open"
+                                    class="cursor-pointer text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center hover:bg-gray-100">
+                                    <td class="p-3 border">{{ $index + 1 }}</td>
+                                    <td class="p-3 border">{{ $item->matpel->nama }}</td>
+                                    <td class="p-3 border">{{ $item->kelas->tingkat }}{{ $item->kelas->sub_kelas }}</td>
+                                    <td class="p-3 border">{{ $item->waktu_mulai }}</td>
+                                    <td class="p-3 border">{{ $item->waktu_selesai }}</td>
+                                    <td class="p-3 border space-x-2">
+                                        <a href="{{ route('absensi.create', $item->id) }}"
+                                            class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded shadow">
+                                            Tambah
+                                        </a>
+                                    </td>
+                                </tr>
 
-                                    </tr>
-                                @endforeach
+                                <tr x-show="open" x-transition>
+                                    <td colspan="6" class="p-4 border bg-gray-100 dark:bg-gray-800 text-left">
+                                        <div class="mb-2 font-semibold text-sm text-gray-700 dark:text-gray-200">Daftar
+                                            Absensi:</div>
+                                        <ul class="space-y-1 text-sm text-gray-800 dark:text-gray-100">
+                                            @forelse ($item->absensi as $absen)
+                                                <li
+                                                    class="flex justify-between items-center bg-white dark:bg-gray-700 p-2 rounded shadow">
+                                                    <span>{{ \Carbon\Carbon::parse($absen->tanggal)->format('d M Y') }}</span>
+                                                    <div class="space-x-2">
+                                                        <a href="{{ route('absensi.edit', $absen->id) }}"
+                                                            class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded text-xs">
+                                                            Edit
+                                                        </a>
+                                                        <a href="{{ route('absensi.edit', $absen->id) }}"
+                                                            class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs">
+                                                            Cetak
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            @empty
+                                                <li class="text-gray-500 italic">Belum ada absensi.</li>
+                                            @endforelse
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -182,7 +206,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-     @if (session('message_insert'))
+           @if (session('message_insert'))
                         <script>
                             Swal.fire({
                                 icon: 'success',

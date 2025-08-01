@@ -12,12 +12,12 @@
                     <div class="p-4 bg-gray-100 mb-6 rounded-xl font-bold">
                         <div class="flex items-center justify-between">
                             <div class="w-full">
-                                FORM INPUT JADWAL MATA PELAJARAN
+                                FORM EDIT JADWAL MATA PELAJARAN
                             </div>
                         </div>
                     </div>
                     <div>
-                        <form class="w-full mx-auto" method="POST" action="{{ route('jadwal.store') }}">
+                        <form class="w-full mx-auto" method="POST" action="{{ route('jadwal.update') }}">
                             @csrf
                             <div class="flex gap-5">
                                 <div class="mb-5 w-full">
@@ -26,7 +26,6 @@
                                         Guru</label>
                                     <select class="js-example-placeholder-single js-states form-control w-full"
                                         name="id_guru" placeholder="Pilih Guru" id="id_guru" required>
-                                        <option value="" disabled selected>Pilih Guru...</option>
                                         @foreach ($guru as $k)
                                             <option value="{{ $k->id }}">{{ $k->nama }}
                                             </option>
