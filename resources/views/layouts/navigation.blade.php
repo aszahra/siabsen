@@ -62,13 +62,13 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
-                    <x-nav-link :href="route('jadwal.index')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('jadwal.index')" :active="request()->routeIs('jadwal.index')">
                         {{ __('Jadwal') }}
                     </x-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
-                    <x-nav-link :href="route('absensi.index')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('absensi.index')" :active="request()->routeIs('absensi.index')">
                         {{ __('Absensi') }}
                     </x-nav-link>
                 </div>

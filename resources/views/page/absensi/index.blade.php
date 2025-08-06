@@ -207,7 +207,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-             @if (session('message_insert'))
+              @if (session('message_insert'))
                         <script>
                             Swal.fire({
                                 icon: 'success',

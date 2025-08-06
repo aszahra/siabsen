@@ -6,7 +6,7 @@
     <title>Cetak Absensi</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Times New Roman', Times, serif;
             padding: 20px;
         }
 
@@ -18,7 +18,7 @@
         .header h2,
         .header h3,
         .header p {
-            margin: 2px 0;
+            margin: 0px 0;
         }
 
         .info-wrapper {
@@ -47,7 +47,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 13px;
+            font-size: 10px;
         }
 
         table,
@@ -88,11 +88,11 @@
 <body>
     {{-- Kop Surat --}}
     <div class="header" style="display: flex; align-items: center; gap: 20px;">
-    <img src="{{ asset('images/logo.png') }}" alt="Logo Sekolah" width="80">
+        <img src="{{ asset('images/logo.png') }}" alt="Logo Sekolah" width="58">
         <div style="flex: 1; text-align: center;">
             <h3>PEMERINTAH KABUPATEN TASIKMALAYA</h3>
             <h2>SMP NEGERI 2 CIGALONTANG</h2>
-            <p>Sirnaraja, Kec. Cigalontang, Kabupaten Tasikmalaya, Jawa Barat 46463</p>
+            <p>Sirnaraja, Kec. Cigalontang, Kabupaten Tasikmalaya, Jawa Barat</p>
         </div>
     </div>
     <hr style="border: 2px solid black; margin-top: 10px;">
@@ -100,7 +100,6 @@
 
     <h3 style="text-align: center;">LAPORAN ABSENSI</h3>
 
-    {{-- Info Detail --}}
     <div class="info-wrapper">
         <div class="info-left">
             <p><strong>Tanggal</strong></p>
@@ -116,28 +115,48 @@
         </div>
     </div>
 
-    {{-- Tabel Absensi --}}
     <table>
         <thead>
             <tr>
                 <th>No</th>
-                <th>Nama Siswa</th>
-                <th>Keterangan</th>
+                <th>NIS</th>
+                <th>NAMA SISWA</th>
+                <th>JENIS KELAMIN</th>
+                <th>KETERANGAN</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($absensi->detailabsensi as $index => $detail)
                 <tr>
                     <td>{{ $index + 1 }}</td>
+                    <td>{{ $detail->siswa->nis }}</td>
                     <td>{{ $detail->siswa->nama }}</td>
+                    <td>{{ $detail->siswa->jenis_kelamin }}</td>
                     <td>{{ ucfirst($detail->status) }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 
-    {{-- Info Cetak --}}
-    <p class="footer-info">
+    <div style="text-align: right; margin-top: 25px; margin-right: 40px">
+        <div style="display: inline-block; text-align: left;">
+            <p style="font-size: 12px; margin: 0;">
+                Tasikmalaya, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
+            </p>
+            <p style="font-size: 12px; margin-top: 3px; padding-top: 0px">
+                Guru Mata Pelajaran
+            </p>
+            <p style="font-size: 12px; margin-top: 50px; font-weight: bold;">
+                {{ $absensi->guru->nama ?? '-' }}
+            </p>
+            <p style="font-size: 12px;">
+                NIP. {{ $absensi->guru->nip ?? '-' }}
+            </p>
+            
+        </div>
+    </div>
+
+    <p class="footer-info" style="color: #b1aeae; font-size: 10px">
         Dicetak pada: {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y H:i') }}
     </p>
 
