@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('absensi', function (Blueprint $table) {
             $table->id();
-            $table->string('id_jadwal');
             $table->string('id_guru');
-            $table->string('tanggal');
+            $table->string('id_matpel');
+            $table->string('id_kelas');
+            $table->enum('hari', ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat']);
+            $table->date('tanggal');
+            $table->time('waktu_mulai');
+            $table->time('waktu_selesai');
             $table->timestamps();
         });
     }

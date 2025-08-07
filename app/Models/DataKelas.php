@@ -21,8 +21,8 @@ class DataKelas extends Model
         return $this->hasMany(DataSiswa::class, 'id_kelas');
     }
 
-    public function jadwal()
+    public function absensi()
     {
-        return $this->hasMany(Jadwal::class, 'id_kelas');
+        return $this->hasMany(Absensi::class, 'id_kelas');
     }
 }

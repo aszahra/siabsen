@@ -17,7 +17,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- FORM INPUTAN --}}
                         <div>
                             <form class="w-full mx-auto" method="POST" action="{{ route('absensi.store') }}">
                                 @csrf
@@ -27,17 +26,17 @@
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
                                             Guru</label>
                                         <select class="js-example-placeholder-single js-states form-control w-full"
-                                            name="id_guru" placeholder="Pilih Guru" id="id_guru" disabled>
-                                            @foreach ($data_guru as $k)
-                                                <option value="{{ $k->id }}">{{ $k->nama }}
+                                            name="id_guru" placeholder="Pilih Guru" id="id_guru" >
+                                            @foreach ($jadwal as $k)
+                                                <option value="{{ $k->id }}">{{ $k->guru->nama }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="mb-5 w-full">
-                                        <label for="tanggal"
+                                        <label for="id_guru"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal</label>
-                                        <input type="date" name="tanggal" id="tanggal"
+                                        <input type="text" name="id_guru" id="id_guru" 
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" " />
                                 </div>
                                 {{-- <div class="mb-5 w-full">
@@ -76,7 +75,7 @@
                                         Mulai</label>
                                     <select class="js-example-placeholder-single js-states form-control w-full"
                                         name="waktu_mulai" id="waktu_mulai" disabled>
-                                                   @foreach ($jadwal as $k)
+                                                    @foreach ($jadwal as $k)
                                         <option value="{{ $k->id }}">{{ $k->waktu_mulai }}
                                         </option>
                                         @endforeach
@@ -99,7 +98,7 @@
                                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Daftar
                                         Siswa</label>
                                     <div
-                                        class="overflow-x-auto max-h-96 border rounded-lg p-4 bg-white dark:bg-gray-700">
+                                        class="ovexrflow-x-auto max-h-96 border rounded-lg p-4 bg-white dark:bg-gray-700">
                                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600 text-sm">
                                             <thead>
                                                 <tr>
@@ -135,6 +134,27 @@
                                                     </tr>
                                                 @endforeach
                                             </tbody>
+                                            {{-- <tbody>
+                                                @foreach ($data_siswa as $i => $siswa)
+                                                    <tr class="border-t dark:border-gray-600">
+                                                        <td class="px-4 py-2 text-gray-800 dark:text-gray-100">
+                                                            {{ $i + 1 }}</td>
+                                                        <td class="px-4 py-2 text-gray-800 dark:text-gray-100">
+                                                            {{ $siswa->nama }}</td>
+                                                        <td class="px-4 py-2">
+                                                            <select name="absensi[{{ $siswa->id }}]"
+                                                                class="form-select w-full rounded-md">
+                                                                <option value="" disabled selected>Pilih...
+                                                                </option>
+                                                                <option value="hadir">Hadir</option>
+                                                                <option value="izin">Izin</option>
+                                                                <option value="sakit">Sakit</option>
+                                                                <option value="alpa">Alpa</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody> --}}
                                         </table>
                                     </div>
                                 </div>

@@ -27,6 +27,9 @@
                                         NO
                                     </th>
                                     <th scope="col" class="px-4 py-3">
+                                        NAMA GURU
+                                    </th>
+                                    <th scope="col" class="px-4 py-3">
                                         MATA PELAJARAN
                                     </th>
                                     <th scope="col" class="px-4 py-3">
@@ -53,6 +56,7 @@
                                 <tr @click="open = !open"
                                     class="cursor-pointer text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center hover:bg-gray-100">
                                     <td class="p-3 border">{{ $index + 1 }}</td>
+                                    <td class="p-3 border">{{ $item->guru->nama }}</td>
                                     <td class="p-3 border">{{ $item->matpel->nama }}</td>
                                     <td class="p-3 border">{{ $item->kelas->tingkat }}{{ $item->kelas->sub_kelas }}</td>
                                     <td class="p-3 border">{{ $item->waktu_mulai }}</td>
@@ -178,7 +182,7 @@
                         <label for="waktu_mulai"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waktu
                             Mulai</label>
-                        <input type="time" name="waktu_mulai" id="waktu_mulai" 
+                        <input type="time" name="waktu_mulai" id="waktu_mulai"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                     </div>
                     <div class="mb-5 w-full">
@@ -206,7 +210,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-           @if (session('message_insert'))
+            @if (session('message_insert'))
                         <script>
                             Swal.fire({
                                 icon: 'success',

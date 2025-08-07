@@ -15,8 +15,8 @@ class DataMatpel extends Model
 
     protected $table = 'data_matpel';
 
-    public function jadwal()
+    public function absensi()
     {
-        return $this->hasMany(Jadwal::class, 'id_matpel');
+        return $this->hasMany(Absensi::class, 'id_matpel');
     }
 }

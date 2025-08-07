@@ -14,12 +14,15 @@ return new class extends Migration
         Schema::create('data_siswa', function (Blueprint $table) {
             $table->id();
             $table->string('nis');
-            $table->string('nama');
             $table->string('id_kelas');
+            $table->string('nama');
             $table->string('jenis_kelamin');
-            $table->string('alamat');
+            $table->string('tempat_lahir');
             $table->string('tgl_lahir');
-            $table->enum('status', ['aktif', 'nonaktif', 'alumni'])->nullable();
+            $table->enum('agama', ['Islam', 'Kristen', 'Hindu', 'Budha', 'Konghuchu'])->nullable();
+            $table->string('alamat');
+            $table->string('nama_ortu');
+            $table->enum('status', ['Aktif', 'Nonaktif', 'Alumni'])->nullable();
             $table->timestamps();
         });
     }

@@ -13,12 +13,17 @@ return new class extends Migration
     {
         Schema::create('data_guru', function (Blueprint $table) {
             $table->id();
+            $table->string('id_user')->nullable();
             $table->string('nip');
+            $table->string('email');
             $table->string('nama');
             $table->string('jenis_kelamin');
-            $table->string('alamat');
+            $table->string('tempat_lahir');
             $table->date('tgl_lahir');
-            $table->enum('status', ['aktif', 'nonaktif'])->nullable();
+            $table->string('no_telp');
+            $table->enum('agama', ['Islam', 'Kristen', 'Hindu', 'Budha', 'Konghuchu'])->nullable();
+            $table->string('alamat');
+            $table->enum('status', ['Aktif', 'Nonaktif'])->nullable();
             $table->timestamps();
         });
     }

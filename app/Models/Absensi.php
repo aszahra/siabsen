@@ -11,24 +11,24 @@ class Absensi extends Model
 
     protected $fillable = [
         'id_jadwal',
-        'id_guru',
+        // 'id_guru',
         'tanggal',
     ];
 
     protected $table = 'absensi';
 
-    public function absensi()
+    public function jadwal()
     {
         return $this->belongsTo(Jadwal::class, 'id_jadwal', 'id');
     }
 
-    public function guru()
-    {
-        return $this->belongsTo(DataGuru::class, 'id_guru', 'id');
-    }
+    // public function guru()
+    // {
+    //     return $this->belongsTo(DataGuru::class, 'id_guru', 'id');
+    // }
 
-    public function detailabsensi()
-    {
-        return $this->hasMany(DetailAbsensi::class, 'id_absensi');
-    }
+    // public function detailabsensi()
+    // {
+    //     return $this->hasMany(DetailAbsensi::class, 'id_absensi');
+    // }
 }

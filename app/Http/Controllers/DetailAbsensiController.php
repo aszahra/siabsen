@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataGuru;
 use Illuminate\Http\Request;
 
 class DetailAbsensiController extends Controller
@@ -27,7 +28,7 @@ class DetailAbsensiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
