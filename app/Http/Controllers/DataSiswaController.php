@@ -15,8 +15,8 @@ class DataSiswaController extends Controller
     {
         try {
             $kelas = DataKelas::all();
-            $datasiswa = DataSiswa::paginate(10);
-            return view('page.datasiswa.index', compact('datasiswa'))->with([
+            $siswa = DataSiswa::paginate(10);
+            return view('page.datasiswa.index', compact('siswa'))->with([
                 'kelas' => $kelas,
             ]);
         } catch (\Exception $e) {
