@@ -20,7 +20,9 @@ class DataSiswaController extends Controller
                 'kelas' => $kelas,
             ]);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
     }
 
@@ -43,18 +45,22 @@ class DataSiswaController extends Controller
                 'nis' => $request->input('nis'),
                 'nama' => $request->input('nama'),
                 'jenis_kelamin' => $request->input('jenis_kelamin'),
+                'tempat_lahir' => $request->input('tempat_lahir'),
+                'tgl_lahir' => $request->input('tgl_lahir'),
+                'agama' => $request->input('agama'),
                 'alamat' => $request->input('alamat'),
-                'tgl_lahir' => $request->input('tgl_lahir')
+                'nama_ortu' => $request->input('nama_ortu'),
+                'statuss' => $request->input('statuss')
             ];
             // Datasiswa::create($data);
 
-            $exists = \App\Models\DataSiswa::where('nis', $request->nis)->exists();
+            $exists = DataSiswa::where('nis', $request->nis)->exists();
 
             if ($exists) {
                 return redirect()->back()->with('exist', 'Siswa tersebut sudah terdaftar!');
             }
 
-            \App\Models\DataSiswa::create($data);
+            DataSiswa::create($data);
 
 
             // return back()->with('message_delete', 'Data Customer Sudah di Hapus');
@@ -65,7 +71,7 @@ class DataSiswaController extends Controller
         } catch (\Exception $e) {
             echo "<script>console.error('PHP Error: " .
                 addslashes($e->getMessage()) . "');</script>";
-            // return view('error.index');
+            return view('error.index');
         }
     }
 
@@ -96,15 +102,19 @@ class DataSiswaController extends Controller
                 'nis' => $request->input('nis'),
                 'nama' => $request->input('nama'),
                 'jenis_kelamin' => $request->input('jenis_kelamin'),
-                'alamat' => $request->input('alamat'),
+                'tempat_lahir' => $request->input('tempat_lahir'),
                 'tgl_lahir' => $request->input('tgl_lahir'),
+                'agama' => $request->input('agama'),
+                'alamat' => $request->input('alamat'),
+                'nama_ortu' => $request->input('nama_ortu'),
+                'statuss' => $request->input('statuss')
             ];
 
 
             // $datas = Datasiswa::findOrFail($id);
             // $datas->update($data);
 
-            $existing = \App\Models\DataSiswa::where('nis', $request->nis)
+            $existing = DataSiswa::where('nis', $request->nis)
                 ->where('id', '!=', $id)
                 ->exists();
 
@@ -112,7 +122,7 @@ class DataSiswaController extends Controller
                 return redirect()->back()->with('exist', 'Siswa dengan NIS tersebut sudah terdaftar!');
             }
 
-            $siswa = \App\Models\DataSiswa::findOrFail($id);
+            $siswa = DataSiswa::findOrFail($id);
             $siswa->update($data);
 
             return redirect()
@@ -121,7 +131,7 @@ class DataSiswaController extends Controller
         } catch (\Exception $e) {
             echo "<script>console.error('PHP Error: " .
                 addslashes($e->getMessage()) . "');</script>";
-            // return view('error.index');
+            return view('error.index');
         }
     }
 
@@ -137,7 +147,7 @@ class DataSiswaController extends Controller
         } catch (\Exception $e) {
             echo "<script>console.error('PHP Error: " .
                 addslashes($e->getMessage()) . "');</script>";
-            // return view('error.index');
+            return view('error.index');
         }
     }
 }

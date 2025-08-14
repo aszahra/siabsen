@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataGuru;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DataGuruController extends Controller
 {
@@ -16,7 +18,9 @@ class DataGuruController extends Controller
             $dataguru = DataGuru::paginate(10);
             return view('page.dataguru.index', compact('dataguru'));
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
     }
 
@@ -34,27 +38,42 @@ class DataGuruController extends Controller
     public function store(Request $request)
     {
         try {
+            $datauser = User::create([
+                'name' => $request->input('nama'),
+                'email' => strtolower(str_replace(' ', '', $request->input('nama'))) . '@gmail.com',
+                'password' => Hash::make($request->nip),
+                'role' => 'Guru'
+            ]);
+
             $data = [
                 'nip' => $request->input('nip'),
+                'id_user' => $datauser->id,
                 'nama' => $request->input('nama'),
                 'jenis_kelamin' => $request->input('jenis_kelamin'),
-                'alamat' => $request->input('alamat'),
+                'tempat_lahir' => $request->input('tempat_lahir'),
                 'tgl_lahir' => $request->input('tgl_lahir'),
+                'no_telp' => $request->input('no_telp'),
+                'agama' => $request->input('agama'),
+                'alamat' => $request->input('alamat'),
+                'statuss' => $request->input('statuss'),
             ];
 
-            $exists = \App\Models\DataGuru::where('nip', $request->nip)->exists();
+            $exists = DataGuru::where('nip', $request->nip)->exists();
 
             if ($exists) {
                 return redirect()->back()->with('nip_exists', 'Guru tersebut sudah terdaftar!');
             }
 
-            \App\Models\DataGuru::create($data);
+
+            DataGuru::create($data);
 
             return redirect()
                 ->route('dataguru.index')
                 ->with('message_insert', 'Data Guru Berhasil Ditambahkan');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data.');
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
     }
 
@@ -85,11 +104,15 @@ class DataGuruController extends Controller
                 'nip' => 'required',
                 'nama' => 'required',
                 'jenis_kelamin' => 'required',
-                'alamat' => 'required',
+                'tempat_lahir' => 'required',
                 'tgl_lahir' => 'required|date',
+                'no_telp' => 'required',
+                'agama' => 'required',
+                'alamat' => 'required',
+                'statuss' => 'required',
             ]);
 
-            $existing = \App\Models\DataGuru::where('nip', $request->nip)
+            $existing = DataGuru::where('nip', $request->nip)
                 ->where('id', '!=', $id)
                 ->exists();
 
@@ -97,14 +120,16 @@ class DataGuruController extends Controller
                 return redirect()->back()->with('nip_exists', 'Guru dengan NIP tersebut sudah terdaftar!');
             }
 
-            $guru = \App\Models\DataGuru::findOrFail($id);
+            $guru = DataGuru::findOrFail($id);
             $guru->update($data);
 
             return redirect()
                 ->route('dataguru.index')
                 ->with('message_update', 'Data Guru Berhasil Diupdate');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
     }
 
@@ -114,8 +139,14 @@ class DataGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = DataGuru::findOrFail($id);
-        $data->delete();
-        return back()->with('message_delete', 'Data Konsumen Sudah dihapus');
+        try {
+            $data = DataGuru::findOrFail($id);
+            $data->delete();
+            return back()->with('message_delete', 'Data Guru Sudah dihapus');
+        } catch (\Exception $e) {
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
+        }
     }
 }

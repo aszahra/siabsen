@@ -11,6 +11,7 @@ class DetailAbsensi extends Model
 
     protected $fillable = [
         'id_absensi',
+        'tanggal',
         'id_siswa',
         'status',
     ];

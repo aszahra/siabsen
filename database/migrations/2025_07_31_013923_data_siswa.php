@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('jenis_kelamin');
             $table->string('tempat_lahir');
             $table->string('tgl_lahir');
-            $table->enum('agama', ['Islam', 'Kristen', 'Hindu', 'Budha', 'Konghuchu'])->nullable();
+            $table->string('agama')->nullable();
             $table->string('alamat');
             $table->string('nama_ortu');
-            $table->enum('status', ['Aktif', 'Nonaktif', 'Alumni'])->nullable();
+            $table->string('statuss')->nullable();
             $table->timestamps();
         });
     }

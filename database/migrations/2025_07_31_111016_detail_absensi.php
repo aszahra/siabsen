@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('detail_absensi', function (Blueprint $table) {
             $table->id();
             $table->string('id_absensi');
+            $table->date('tanggal');
             $table->string('id_siswa');
-            $table->enum('status', ['Hadir', 'Izin', 'Sakit', 'Alpa']);
+            $table->string('status');
             $table->timestamps();
         });
     }

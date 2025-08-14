@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('id_guru');
             $table->string('id_matpel');
             $table->string('id_kelas');
-            $table->enum('hari', ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat']);
-            $table->date('tanggal');
+            $table->string('hari');
             $table->time('waktu_mulai');
             $table->time('waktu_selesai');
             $table->timestamps();

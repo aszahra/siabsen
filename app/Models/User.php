@@ -46,4 +46,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function guru()
+    {
+        return $this->hasOne(DataGuru::class, 'id_user');
+    }
 }

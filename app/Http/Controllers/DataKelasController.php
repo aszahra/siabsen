@@ -16,7 +16,9 @@ class DataKelasController extends Controller
             $nama = DataKelas::paginate(10);
             return view('page.datakelas.index', compact('nama'));
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
     }
 
@@ -41,7 +43,7 @@ class DataKelasController extends Controller
 
             // DataKelas::create($data);
 
-            $exists = \App\Models\DataKelas::where('tingkat', $request->tingkat)
+            $exists = DataKelas::where('tingkat', $request->tingkat)
                 ->where('sub_kelas', $request->sub_kelas)
                 ->exists();
 
@@ -49,7 +51,7 @@ class DataKelasController extends Controller
                 return redirect()->back()->with('message_exists', 'Kelas tersebut sudah terdaftar!');
             }
 
-            \App\Models\DataKelas::create([
+            DataKelas::create([
                 'tingkat' => $request->tingkat,
                 'sub_kelas' => $request->sub_kelas,
             ]);
@@ -60,6 +62,7 @@ class DataKelasController extends Controller
         } catch (\Exception $e) {
             echo "<script>console.error('PHP Error: " .
                 addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
     }
 
@@ -93,16 +96,16 @@ class DataKelasController extends Controller
             // $datas = DataKelas::findOrFail($id);
             // $datas->update($data);
 
-            $existing = \App\Models\DataKelas::where('tingkat', $request->tingkat)
+            $existing = DataKelas::where('tingkat', $request->tingkat)
                 ->where('sub_kelas', $request->sub_kelas)
-                ->where('id', '!=', $id) 
+                ->where('id', '!=', $id)
                 ->exists();
 
             if ($existing) {
                 return redirect()->back()->with('message_exists', 'Kelas tersebut sudah terdaftar!');
             }
 
-            $data = \App\Models\DataKelas::findOrFail($id);
+            $data = DataKelas::findOrFail($id);
             $data->update([
                 'tingkat' => $request->tingkat,
                 'sub_kelas' => $request->sub_kelas,
@@ -114,6 +117,7 @@ class DataKelasController extends Controller
         } catch (\Exception $e) {
             echo "<script>console.error('PHP Error: " .
                 addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
     }
 
@@ -131,10 +135,9 @@ class DataKelasController extends Controller
                 'message' => 'Data Kelas Berhasil Dihapus!',
             ]);
         } catch (\Exception $e) {
-            return redirect()->route('datakelas.index')->with([
-                'alert' => 'error',
-                'message' => 'Gagal Menghapus Kelas: ' . $e->getMessage(),
-            ]);
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
     }
 }

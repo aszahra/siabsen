@@ -16,7 +16,9 @@ class DataMataPelajaranController extends Controller
             $datamatpel = DataMatpel::paginate(10);
             return view('page.datamatpel.index', compact('datamatpel'));
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
     }
 
@@ -56,10 +58,9 @@ class DataMataPelajaranController extends Controller
                 'message_insert' => 'Data mata pelajaran berhasil ditambahkan!',
             ]);
         } catch (\Exception $e) {
-            return redirect()->route('datamatpel.index')->with([
-                'alert' => 'error',
-                'message' => 'Gagal menambahkan mata pelajaran: ' . $e->getMessage(),
-            ]);
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
     }
 
@@ -111,10 +112,9 @@ class DataMataPelajaranController extends Controller
                 'message_update' => 'Data mata pelajaran berhasil diperbarui!',
             ]);
         } catch (\Exception $e) {
-            return redirect()->route('datamatpel.index')->with([
-                'alert' => 'error',
-                'message' => 'Gagal memperbarui mata pelajaran: ' . $e->getMessage(),
-            ]);
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
     }
 
@@ -132,10 +132,9 @@ class DataMataPelajaranController extends Controller
                 'message' => 'Data mata pelajaran berhasil dihapus!',
             ]);
         } catch (\Exception $e) {
-            return redirect()->route('datamatpel.index')->with([
-                'alert' => 'error',
-                'message' => 'Gagal menghapus mata pelajaran: ' . $e->getMessage(),
-            ]);
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
     }
 }

@@ -7,9 +7,9 @@ use App\Models\DataGuru;
 use App\Models\DataKelas;
 use App\Models\DataMatpel;
 use App\Models\DataSiswa;
-use App\Models\DetailAbsensi;
 use App\Models\Jadwal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AbsensiController extends Controller
 {
@@ -18,19 +18,29 @@ class AbsensiController extends Controller
      */
     public function index()
     {
-        // $matpel = DataMatpel::all();
-        // $kelas = DataKelas::all();
-        // $absensi = Absensi::paginate(10);
-        // return View('page.absensi.index')->with([
-        //     'absensi' => $absensi,
-        //     'matpel' => $matpel,
-        //     'kelas' => $kelas,
-        // ]);
+        try {
+            $guru = DataGuru::all();
+            $matpel = DataMatpel::all();
+            $kelas = DataKelas::all();
+            if (Auth::user()->role == "Guru") {
+                $absensi = Absensi::join('data_guru', 'absensi.id_guru', '=', 'data_guru.id')
+                    ->where('data_guru.id_user', Auth::id())
+                    ->paginate(10);
+            } else {
+                $absensi = Absensi::paginate(10);
+            }
+            // $absensi = Absensi::paginate(10);
 
-        $jadwal = Jadwal::all();
-        // $kelas = DataKelas::all();
-        // $absensi = Absensi::paginate(10);
-        return view('page.absensi.index', compact('jadwal'));
+            return view('page.absensi.index', compact('absensi'))->with([
+                'guru' => $guru,
+                'matpel' => $matpel,
+                'kelas' => $kelas,
+            ]);
+        } catch (\Exception $e) {
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
+        }
     }
 
     /**
@@ -38,14 +48,20 @@ class AbsensiController extends Controller
      */
     public function create()
     {
-        $jadwal = Jadwal::all();
-        $data_guru = DataGuru::all();
-        $data_siswa = DataSiswa::all();
-        return view('page.absensi.create')->with([
-            'jadwal' => $jadwal,
-            'data_guru' => $data_guru,
-            'data_siswa' => $data_siswa,
-        ]);
+        try {
+            $guru = DataGuru::all();
+            $matpel = DataMatpel::all();
+            $kelas = DataKelas::all();
+            return view('page.absensi.create')->with([
+                'guru' => $guru,
+                'matpel' => $matpel,
+                'kelas' => $kelas,
+            ]);
+        } catch (\Exception $e) {
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
+        }
     }
 
     /**ab
@@ -64,53 +80,42 @@ class AbsensiController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'tanggal' => 'required|date',
-            'absensi' => 'required|array',
-            'absensi.*' => 'in:hadir,izin,sakit,alpa',  
-        ]);
+        try {
+            $data = [
+                'id_guru' => $request->input('id_guru'),
+                'id_matpel' => $request->input('id_matpel'),
+                'id_kelas' => $request->input('id_kelas'),
+                // 'tanggal' => $request->input('tanggal'),
+                'hari' => $request->input('hari'),
+                'waktu_mulai' => $request->input('waktu_mulai'),
+                'waktu_selesai' => $request->input('waktu_selesai'),
+                // 'minggu' => $request->input('minggu'),
+            ];
 
-        $jadwal = Jadwal::first();
+            Absensi::create($data);
 
-        $absensi = Absensi::create([
-            'id_jadwal' => $jadwal->id,
-            'id_guru' => $jadwal->id_guru,
-            'tanggal' => $request->tanggal,
-        ]);
-
-        foreach ($request->absensi as $id_siswa => $status) {
-            DetailAbsensi::create([
-                'id_absensi' => $absensi->id,
-                'id_siswa' => $id_siswa,
-                'status' => $status,
-            ]);
+            return redirect()
+                ->route('absensi.index')
+                ->with('message_insert', 'Data Absensi Berhasil Ditambahkan');
+        } catch (\Exception $e) {
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
         }
-
-        return redirect()->route('absensi.index')->with('success', 'Absensi berhasil disimpan.');
     }
 
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        $jadwal = Jadwal::all();
-        $data_guru = DataGuru::all();
-        $data_siswa = DataSiswa::all();
-        return view('page.absensi.edit')->with([
-            'jadwal' => $jadwal,
-            'data_guru' => $data_guru,
-            'data_siswa' => $data_siswa,
-        ]);
+        // 
     }
 
     /**
@@ -118,7 +123,29 @@ class AbsensiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $data = [
+                'id_guru' => $request->input('id_guru'),
+                'id_matpel' => $request->input('id_matpel'),
+                'id_kelas' => $request->input('id_kelas'),
+                // 'tanggal' => $request->input('tanggal'),
+                'hari' => $request->input('hari'),
+                'waktu_mulai' => $request->input('waktu_mulai'),
+                'waktu_selesai' => $request->input('waktu_selesai'),
+                // 'minggu' => $request->input('minggu'),
+            ];
+
+            $absensi = Absensi::findOrFail($id);
+            $absensi->update($data);
+
+            return redirect()
+                ->route('absensi.index')
+                ->with('message_update', 'Data Guru Berhasil Diupdate');
+        } catch (\Exception $e) {
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
+        }
     }
 
     /**
@@ -126,6 +153,14 @@ class AbsensiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $data = Absensi::findOrFail($id);
+            $data->delete();
+            return back()->with('message_delete', 'Data Absensi Sudah dihapus');
+        } catch (\Exception $e) {
+            echo "<script>console.error('PHP Error: " .
+                addslashes($e->getMessage()) . "');</script>";
+            return view('error.index');
+        }
     }
 }

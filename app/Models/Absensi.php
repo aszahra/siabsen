@@ -10,25 +10,35 @@ class Absensi extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_jadwal',
-        // 'id_guru',
-        'tanggal',
+        'id_guru',
+        'id_matpel',
+        'id_kelas',
+        // 'tanggal',
+        'hari',
+        'waktu_mulai',
+        'waktu_selesai',
+        // 'minggu',
     ];
 
     protected $table = 'absensi';
 
-    public function jadwal()
+    public function guru()
     {
-        return $this->belongsTo(Jadwal::class, 'id_jadwal', 'id');
+        return $this->belongsTo(DataGuru::class, 'id_guru', 'id');
     }
 
-    // public function guru()
-    // {
-    //     return $this->belongsTo(DataGuru::class, 'id_guru', 'id');
-    // }
+    public function matpel()
+    {
+        return $this->belongsTo(DataMatpel::class, 'id_matpel', 'id');
+    }
 
-    // public function detailabsensi()
-    // {
-    //     return $this->hasMany(DetailAbsensi::class, 'id_absensi');
-    // }
+    public function kelas()
+    {
+        return $this->belongsTo(DataKelas::class, 'id_kelas', 'id');
+    }
+
+    public function detailabsensi()
+    {
+        return $this->hasMany(DetailAbsensi::class, 'id_absensi');
+    }
 }

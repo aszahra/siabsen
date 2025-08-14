@@ -14,9 +14,12 @@ class DataSiswa extends Model
         'nama',
         'id_kelas',
         'jenis_kelamin',
-        'alamat',
+        'tempat_lahir',
         'tgl_lahir',
-        'status',
+        'agama',
+        'alamat',
+        'nama_ortu',
+        'statuss',
     ];
 
     protected $table = 'data_siswa';
@@ -26,7 +29,7 @@ class DataSiswa extends Model
         return $this->belongsTo(DataKelas::class, 'id_kelas', 'id');
     }
 
-    public function absensi()
+    public function detailabsensi()
     {
         return $this->hasMany(Absensi::class, 'id_siswa');
     }

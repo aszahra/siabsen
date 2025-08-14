@@ -11,11 +11,16 @@ class DataGuru extends Model
 
     protected $fillable = [
         'nip',
+        'id_user',
+        // 'email',
         'nama',
         'jenis_kelamin',
-        'alamat',
+        'tempat_lahir',
         'tgl_lahir',
-        'status',
+        'no_telp',
+        'agama',
+        'alamat',
+        'statuss',
     ];
 
     protected $table = 'data_guru';
@@ -25,8 +30,8 @@ class DataGuru extends Model
         return $this->hasMany(Absensi::class, 'id_guru');
     }
 
-    public function absensi()
-    {
-        return $this->hasMany(Absensi::class, 'id_guru');
-    }
+    // public function absensi()
+    // {
+    //     return $this->hasMany(Absensi::class, 'id_guru');
+    // }
 }

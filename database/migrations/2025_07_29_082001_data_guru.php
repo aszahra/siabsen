@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('tempat_lahir');
             $table->date('tgl_lahir');
             $table->string('no_telp');
-            $table->enum('agama', ['Islam', 'Kristen', 'Hindu', 'Budha', 'Konghuchu'])->nullable();
+            $table->string('agama')->nullable();
             $table->string('alamat');
-            $table->enum('status', ['Aktif', 'Nonaktif'])->nullable();
+            $table->string('statuss')->nullable();
             $table->timestamps();
         });
     }
